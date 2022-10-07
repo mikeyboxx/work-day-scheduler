@@ -27,7 +27,13 @@ $('#current-day').text(currentDateFormatted);
 // Render Time Blocks
 for (var i = 0; i < timeBlockObjArr.length; i++){
     var currHour = currentHour.slice(0,-2);
+    var currAmPm = currentHour.slice(-2);
+    if (currAmPm === 'PM' && currHour < 12 ) currHour += 12;
+
     var timeBlockHour = timeBlockObjArr[i].time.slice(0,-2);
+    var timeBlockHourAmPm = timeBlockObjArr[i].time.slice(-2);
+    if (timeBlockHourAmPm === 'PM' && timeBlockHourAmPm < 12 ) timeBlockHourAmPm += 12;
+
     var className = '';
 
     // check if time block hour is past, present, or future
