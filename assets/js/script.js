@@ -75,3 +75,14 @@ for (var i = 0; i < timeBlockObjArr.length; i++){
         $('#save-message').text('');
     });
 }
+
+// remove local storage and the events text from all time blocks on the page
+$('.btn-clear').on('click', function (event){
+    event.stopPropagation();
+    localStorage.removeItem('timeBlocks');
+
+    for (var i = 0; i < timeBlockObjArr.length; i++){
+        $(`#col-1-${i} textarea`).val('');
+        timeBlockObjArr[i].text = '';
+    }
+})
