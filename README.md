@@ -21,10 +21,8 @@ To visit site, navigate to the following HTTP address:
 
 The following images show the web application's appearance and functionality:
 
-![Intro Page](assets/img/screenshot.png)
-![Question Page](assets/img/screenshot-2.png)
-![Result Score Page](assets/img/screenshot-3.png)
-![High Scores Page](assets/img/screenshot-4.png)
+![](assets/img/screenshot.png)
+![](assets/img/screenshot-2.png)
 
 ---
 

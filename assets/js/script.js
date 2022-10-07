@@ -48,7 +48,7 @@ for (var i = 0; i < timeBlockObjArr.length; i++){
     }
     
     //generate HTML strings with classnames of past, present, future
-    var rowStr = `<div class="row time-block" id="row-${i}"></div>`;
+    var rowStr = `<div class="row time-block " id="row-${i}"></div>`;
     var hourColStr = `<div class="col-1 hour" id="col-0-${i}">${timeText}</div>`;
     var textColStr = `<div class="col-10 ${className}" id="col-1-${i}"><textarea>${timeBlockObjArr[i].text}</textarea></div>`;
     var saveColStr = `<div class="col-1 saveBtn" id="col-2-${i}"><span>💾</span></div>`;

@@ -2,7 +2,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1;
-  /* margin-bottom: 30px; */
 }
 
 textarea {
@@ -43,6 +42,7 @@ textarea {
   border-top: 1px dashed #000000;
   border-right: 1px solid black;
   padding-top: 10px;
+  margin: 0 auto;
 }
 
 .past {
@@ -70,8 +70,8 @@ textarea {
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
   color: white;
-  padding-left: 22px;
-  padding-top: 28px;
+  /* padding-left: 22px;
+  padding-top: 28px; */
 }
 
 .saveBtn:hover {
@@ -87,4 +87,9 @@ textarea {
     text-align: center;
     font-size: 1.1em;
     font-weight: 300;
+  }
+
+  #current-day {
+    color: red;
+    font-weight: bolder;
   }
