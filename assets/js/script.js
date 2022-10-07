@@ -39,9 +39,17 @@ for (var i = 0; i < timeBlockObjArr.length; i++){
         className = 'future';
     }
     
+    // format the time
+    var timeText = '';
+    if (timeBlockObjArr[i].time === 12){
+        timeText = timeBlockObjArr[i].time + 'PM';
+    } else {
+        timeText = (timeBlockObjArr[i].time > 12) ? (timeBlockObjArr[i].time - 12) + 'PM' : timeBlockObjArr[i].time + 'AM';
+    }
+    
     //generate HTML strings with classnames of past, present, future
     var rowStr = `<div class="row time-block" id="row-${i}"></div>`;
-    var hourColStr = `<div class="col-1 hour" id="col-0-${i}">${timeBlockObjArr[i].time}</div>`;
+    var hourColStr = `<div class="col-1 hour" id="col-0-${i}">${timeText}</div>`;
     var textColStr = `<div class="col-10 ${className}" id="col-1-${i}"><textarea>${timeBlockObjArr[i].text}</textarea></div>`;
     var saveColStr = `<div class="col-1 saveBtn" id="col-2-${i}"><span>💾</span></div>`;
     
@@ -70,7 +78,8 @@ for (var i = 0; i < timeBlockObjArr.length; i++){
     // add event listener to text column, save the index of clicked row and clear out the save message
     $(`#col-1-${i}`).on('click', function (event){
         event.stopPropagation();
-        var idx = Number($(event.target).parent().attr('id').at(-1));
+        // get the id of the dom element row 
+        var idx = Number($(this).attr('id').at(-1));
         lastInputIdx = idx;
         $('#save-message').text('');
     });
