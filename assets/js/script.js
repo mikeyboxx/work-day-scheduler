@@ -1,15 +1,17 @@
-// var hoursArr = ['11AM', '12PM', '1PM', '2PM','3PM','4PM','6PM','7PM','8PM','9PM'];
-var hoursArr = ['9AM', '10AM', '11AM', '12PM', '1PM', '2PM','3PM','4PM','5PM',];
-var timeBlockObjArr = [];
-var lastInputIdx = -1; 
+
+var timeBlockObjArr = [];  // array of time block objs saved/retrieved from local storage
+var lastInputIdx = -1;     // index of the last time block clicked on
 
 // Get timeBlockObjArr from local storage
 var localStorageArr = JSON.parse(localStorage.getItem('timeBlocks'));
+
 // if first time initialize the array
+var fromhour = 9;
+var toHour = 17;
 if (localStorageArr === null){
-    for (var i = 0; i < hoursArr.length; i++){
+    for (var i = fromhour; i <= toHour; i++){
         timeBlockObjArr.push({
-            time: hoursArr[i],
+            time: i,
             text: ''
         })
     }
@@ -19,27 +21,19 @@ if (localStorageArr === null){
 
 // Get current Date and Time
 var currentDate = moment();
-var currentDateFormatted = currentDate.format('dddd, MMMM Do');
-var currentHour = currentDate.format('hA');
+var currentDateFormatted = currentDate.format('dddd, MMMM Do');  
+var currentHour = currentDate.get('hour');   // 24hr format
+
 // Render current Date
 $('#current-day').text(currentDateFormatted);
 
 // Render Time Blocks
+// check if time block hour is past, present, or future
+var className = '';
 for (var i = 0; i < timeBlockObjArr.length; i++){
-    var currHour = currentHour.slice(0,-2);
-    var currAmPm = currentHour.slice(-2);
-    if (currAmPm === 'PM' && currHour < 12 ) currHour += 12;
-
-    var timeBlockHour = timeBlockObjArr[i].time.slice(0,-2);
-    var timeBlockHourAmPm = timeBlockObjArr[i].time.slice(-2);
-    if (timeBlockHourAmPm === 'PM' && timeBlockHourAmPm < 12 ) timeBlockHourAmPm += 12;
-
-    var className = '';
-
-    // check if time block hour is past, present, or future
-    if (timeBlockHour <  currHour) {
+    if (timeBlockObjArr[i].time <  currentHour) {
         className = 'past';
-    } else if(timeBlockHour ===  currHour){
+    } else if(timeBlockObjArr[i].time ===  currentHour){
         className = 'present';
     } else {
         className = 'future';
@@ -53,14 +47,17 @@ for (var i = 0; i < timeBlockObjArr.length; i++){
     
     // append row to the time block container
     $('#time-block-container').append(rowStr);
+
     // append hour, text, and save button columns to row container
     $(`#row-${i}`).append(hourColStr).append(textColStr).append(saveColStr);
 
     // add event listener to last column containing the save icon
     $(`#col-2-${i}`).on('click', function (event){
         event.stopPropagation();
+
         // get the index of the row that was clicked on
         var idx = Number($(event.target).parent().attr('id').at(-1));
+        
         // if row is the same as last row clicked, save the textarea value in local storage, render message
         if (lastInputIdx === idx){
             var val = $(`#col-1-${idx} textarea`).val();
